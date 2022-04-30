@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload an image</title>
+</head>
+<body onload="show_upload_local_file()">
+    <link rel="stylesheet" type="text/css" href="/static/css/main.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/upload.css">
+    <script type="text/javascript" src="/static/js/main.js"></script>
+    <header>
+            <nav>
+                <h1 class=""><a href="/">Portal home</a></h1>
+                <h1 class="align-right margin-right"><a href="/announcements">Announcements</a></h1>
+                <h1 class="align-right"><a href="/upload">Upload image</a></h1>
+            </nav>
+    </header>
+    <center>
+        <br><br>
+        <div id="content">
+            <h2 onclick="show_upload_local_file()">
+                Upload local file
+            </h2>
+            <h2 onclick="show_upload_remote_file()">
+                Upload from url
+            </h2>
+            <div id="form-div">
+                
+            </div>
+        </div>
+    </center>
+    <br>
+    <br>
+    <h1>
+        <center>
+            <strong>File uploaded successfully to the following url:</strong>
+        </center>
+    </h1>
+    <h1>        
+        <center>
+            <strong><a href="http://forge.htb/uploads/h2Teiu9H6FOPC1Wi82XK">http://forge.htb/uploads/h2Teiu9H6FOPC1Wi82XK</strong>
+        </center>
+    </h1>
+</body>
+</html>

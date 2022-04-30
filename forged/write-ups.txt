@@ -1,0 +1,19 @@
+ip : 10.10.11.111
+vuln : full ssrf in image upload -> misconfiguration.
+
+enum :
+- port scan showed only port 80 and 22 are open.
+- vhost bruteforce with gobuster.
+gobuster vhost -u http://forge.htb -t 30 -w /usr/share/seclists/Discovery/DNS/subdomain-5000.txt
+
+got only admin.forge.htb.
+
+new hosts only accept connection from localhos.
+
+bypass restricted address (localhost,127.0.0.1,admin.forge.htb) with 302 redirect trick and pointing to admin.forge.htb. in admin.forge.htb there is announcement page that tell us if the server now accept ftp,ftps protocol with default password $(cat loot/ftp-pass).
+
+## initial access
+login to ftp with these creds with ssrf from forge.htb (upload from url feature) uploaded file will be random name image but we can *cat* or *strings* the image to see the content. with these trick grab ssh key using ftp and login with it.
+
+# ROOT
+once get shell run $(sudo -l) to see what can we run with root access, and there is program in /opt directory that run a python script with root permission. the script tells us if the script has errorit will bring us to python pdb (python debugging?) which is good, from there we can exec arbitrary python code to get a root shell (import os; os.system('/bin/bash')

@@ -1,0 +1,2 @@
+admin.forge.htb : 22/tcp open
+admin.forge.htb : 80/tcp open

@@ -1,0 +1,4 @@
+[10:07:22] Starting:
+[10:07:28] 301 -  224B  - /uploads  ->  http://forge.htb/uploads/
+[10:07:31] 301 -  307B  - /static  ->  http://forge.htb/static/
+[10:07:33] 200 -  929B  - /upload

