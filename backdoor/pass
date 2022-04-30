@@ -1,0 +1,5 @@
+/** MySQL database username */
+define( 'DB_USER', 'wordpressuser' );
+
+/** MySQL database password */
+define( 'DB_PASSWORD', MQYBJSaD#DxG6qbm );

