@@ -1,0 +1,56 @@
+# Nmap 7.80 scan initiated Thu Jan 27 12:21:06 2022 as: nmap -T4 -sS -sV -sC -sU -oN nmap/nmap-default.txt -vvv 10.10.11.124
+Warning: 10.10.11.124 giving up on port because retransmission cap hit (6).
+Increasing send delay for 10.10.11.124 from 100 to 200 due to 11 out of 24 dropped probes since last increase.
+Increasing send delay for 10.10.11.124 from 200 to 400 due to 60 out of 149 dropped probes since last increase.
+Increasing send delay for 10.10.11.124 from 400 to 800 due to 11 out of 11 dropped probes since last increase.
+Nmap scan report for 10.10.11.124
+Host is up, received echo-reply ttl 63 (0.11s latency).
+Scanned at 2022-01-27 12:21:07 UTC for 1267s
+Not shown: 1968 closed ports
+Reason: 999 resets and 969 port-unreaches
+PORT      STATE         SERVICE         REASON              VERSION
+80/tcp    open          http            syn-ack ttl 63      Apache httpd 2.4.41
+| http-methods: 
+|_  Supported Methods: GET HEAD POST OPTIONS
+|_http-server-header: Apache/2.4.41 (Ubuntu)
+|_http-title: Did not follow redirect to http://shibboleth.htb/
+111/udp   open|filtered rpcbind         no-response
+623/udp   open          asf-rmcp        udp-response ttl 63
+1069/udp  open|filtered cognex-insight  no-response
+1088/udp  open|filtered cplscrambler-al no-response
+16503/udp open|filtered unknown         no-response
+17459/udp open|filtered unknown         no-response
+17490/udp open|filtered unknown         no-response
+17580/udp open|filtered unknown         no-response
+18113/udp open|filtered unknown         no-response
+18331/udp open|filtered unknown         no-response
+18669/udp open|filtered unknown         no-response
+18987/udp open|filtered unknown         no-response
+20117/udp open|filtered unknown         no-response
+20146/udp open|filtered unknown         no-response
+20679/udp open|filtered unknown         no-response
+21303/udp open|filtered unknown         no-response
+21454/udp open|filtered unknown         no-response
+21923/udp open|filtered unknown         no-response
+24007/udp open|filtered unknown         no-response
+27707/udp open|filtered unknown         no-response
+28641/udp open|filtered unknown         no-response
+30263/udp open|filtered unknown         no-response
+30365/udp open|filtered unknown         no-response
+34892/udp open|filtered unknown         no-response
+49165/udp open|filtered unknown         no-response
+49178/udp open|filtered unknown         no-response
+49192/udp open|filtered unknown         no-response
+49200/udp open|filtered unknown         no-response
+49226/udp open|filtered unknown         no-response
+49968/udp open|filtered unknown         no-response
+58640/udp open|filtered unknown         no-response
+1 service unrecognized despite returning data. If you know the service/version, please submit the following fingerprint at https://nmap.org/cgi-bin/submit.cgi?new-service :
+SF-Port623-UDP:V=7.80%I=7%D=1/27%Time=61F2928A%P=aarch64-unknown-linux-gnu
+SF:%r(ipmi-rmcp,1E,"\x06\0\xff\x07\0\0\0\0\0\0\0\0\0\x10\x81\x1cc\x20\x008
+SF:\0\x01\x97\x04\x03\0\0\0\0\t");
+Service Info: Host: shibboleth.htb
+
+Read data files from: /usr/bin/../share/nmap
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+# Nmap done at Thu Jan 27 12:42:14 2022 -- 1 IP address (1 host up) scanned in 1268.28 seconds

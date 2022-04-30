@@ -1,0 +1,29 @@
+IP	: 10.10.11.124
+OS	: Ubuntu
+
+# Foothold
+scan host with nmap mode tcp/udp mode to default ports. 
+result :
+only 2 ports are open, port 80/tcp and port 623/udp.
+
+add shibboleth.htb to the hosts file, and i bruteforcing the vhosts with gobuster, i got 3 another domain:
+monitor.shibboleth.htb
+monitoring.shibboleth.htb
+zabbix.shibboleth.htb
+
+add all these vhosts to hosts file too.
+
+so we know uncommon udp port is open at 623 running asf-rmcp
+search how to exploit it in google:
+https://book.hacktricks.xyz/pentesting/623-udp-ipmi
+https://www.rapid7.com/blog/post/2013/07/02/a-penetration-testers-guide-to-ipmi/
+
+follow these tricks to get user hash and crack it with hashcat -m 7300 mode.
+once done login to zabbix.shibboleth.htb with these credentials. now go to configuration -> hosts -> items -> create new items. In column 'key' put 'system.run[reverse shell here] and boom we got shell as zabbix.
+
+in the box only 2 users there are ipmi-svc, and root.
+easy logged in to user ipmi-svc with creds we got from cracked hash.
+
+# ROOT !
+poke around seaeching running process, what can we exec with sudo, what port is running on internal server ? check every service version maybe that service is vulnerable with known CVE. port 3306 is open but we cannot log in with our creds, so try to find databases.*, .conf file, .db or file that may be contain creds for mariadb. and we got zabbix_server.conf file under /etx/zabbix directory which contain user and password for mariadb. login to mariadb 10.3.25 and it is vuln to https://github.com/Al1ex/CVE-2021-27928 
+follow the instruction on the github and boom we are ROOT !

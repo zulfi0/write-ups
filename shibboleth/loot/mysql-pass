@@ -1,0 +1,12 @@
+### Option: DBUser
+#       Database user.
+#                                                                                  # Mandatory: no                                                                    # Default:                                                                         # DBUser=                                                                          
+DBUser=zabbix
+
+### Option: DBPassword
+#       Database password.
+#       Comment this line if no password is used.
+#
+# Mandatory: no
+# Default:
+DBPassword=bloooarskybluh
