@@ -1,0 +1,47 @@
+IP : - 
+OS : Debian 10
+diff : Medium
+Vuln : Exiftool RCE
+
+
+# Recon
+start with scanning the target with nmap on all tcp/udp ports.
+got only 2 port 80,22 on tcp. port 80 has artcorp.htb domain.
+nothing really interesting on udp
+
+bruteforcing Vhost and DNS with gobuster.
+result shows no DNS subdomain only 1 VHost dev01.artcorp.htb.
+
+# foothold.
+dev01.artcorp.htb has upload file feature that will extract metadata of the png/jpg images the first thing came up to my mind is exiftool and i remember there is CVE for exiftool to gain RCE.
+ CVE : CVE-2021-22204-exiftool
+
+craft malicious image (you can use manual,metaspoit or https://github.com/convisolabs/CVE-2021-22204-exiftool). after that upload the image and boom got shell as www-data.
+
+# LPE 1
+So the box had user thomas and root, no processes running as thomas, no backup file, no config ,no .db file only root and www-data. but user thomas has cronjob running at the background (cronjobs that run on in seconds) and it runs mogrify (imagemagick) to change any file with extemsions to .png format in /var/www/metaview/convert_image/. Searching on google for how to inject a shell script to an image i found https://insert-script.blogspot.com/2020/11/imagemagick-shell-injection-via-pdf.html?m=1 that is exactly what i want.
+
+soo immediately crafted an reverse shell in svg format upload to folder where user thomas execute the mogrify, wsit a seconds and boom got shell as thomas and stealing his ssh keys for better shell.
+
+# LPE 2: ROOT
+thomas can only run neofetch as sudo:
+thomas@meta:~$ sudo -l                            Matching Defaults entries for thomas on meta:                          env_reset, mail_badpass,                                           secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bi
+n\:/sbin\:/bin,
+    env_keep+=XDG_CONFIG_HOME                                      
+User thomas may run the following commands on meta:
+    (root) NOPASSWD: /usr/bin/neofetch \"\"
+
+notice the '\"\"' at the end, it prevent us for using any options !
+
+anf notice the env_keep+=XDG_CONFIG_HOME soo it is required XDG_CONFIG_HOME in our environment:
+~$ export XDG_CONFIG_HOME=(path to .config in this case on /home/thomas/.config)
+
+edit the .config file and adding 'bash' at the beginning on the file.
+
+now run the program with sudo:
+
+~$ sudo neofetch
+
+root@meta:/home/thomas/.config/neofetch# id                        uid=0(root) gid=0(root) groups=0(root)
+
+booom we are root.

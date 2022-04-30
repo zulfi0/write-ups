@@ -1,0 +1,45 @@
+# Nmap 7.80 scan initiated Mon Jan 24 23:20:57 2022 as: nmap -sS -sC -sV -T4 -sU -oN nmap/nmap-all.txt -vvv 10.129.142.102
+Warning: 10.129.142.102 giving up on port because retransmission cap hit (6).
+Increasing send delay for 10.129.142.102 from 100 to 200 due to 11 out of 11 dropped probes since last increase.
+Increasing send delay for 10.129.142.102 from 200 to 400 due to 11 out of 12 dropped probes since last increase.
+Increasing send delay for 10.129.142.102 from 400 to 800 due to 11 out of 11 dropped probes since last increase.
+Nmap scan report for 10.129.142.102
+Host is up, received reset ttl 63 (0.24s latency).
+Scanned at 2022-01-24 23:20:58 UTC for 1127s
+Not shown: 1982 closed ports
+Reason: 998 resets and 984 port-unreaches
+PORT      STATE         SERVICE       REASON         VERSION
+22/tcp    open          ssh           syn-ack ttl 63 OpenSSH 7.9p1 Debian 10+deb10u2 (protocol 2.0)
+| ssh-hostkey: 
+|   2048 12:81:17:5a:5a:c9:c6:00:db:f0:ed:93:64:fd:1e:08 (RSA)
+| ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCiNHVBq9XNN5eXFkQosElagVm6qkXg6Iryueb1zAywZIA4b0dX+5xR5FpAxvYPxmthXA0E7/wunblfjPekyeKg+lvb+rEiyUJH25W/In13zRfJ6Su/kgxw9whZ1YUlzFTWDjUjQBij7QSMktOcQLi7zgrkG3cxGcS39SrEM8tvxcuSzMwzhFqVKFP/AM0jAxJ5HQVrkXkpGR07rgLyd+cNQKOGnFpAukUJnjdfv9PsV+LQs9p+a0jID+5B9y5fP4w9PvYZUkRGHcKCefYk/2UUVn0HesLNNrfo6iUxu+eeM9EGUtqQZ8nXI54nHOvzbc4aFbxADCfew/UJzQT7rovB
+|   256 b5:e5:59:53:00:18:96:a6:f8:42:d8:c7:fb:13:20:49 (ECDSA)
+| ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBEDINAHjreE4lgZywOGusB8uOKvVDmVkgznoDmUI7Rrnlmpy6DnOUhov0HfQVG6U6B4AxCGaGkKTbS0tFE8hYis=
+|   256 05:e9:df:71:b5:9f:25:03:6b:d0:46:8d:05:45:44:20 (ED25519)
+|_ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINdX83J9TLR63TPxQSvi3CuobX8uyKodvj26kl9jWUSq
+80/tcp    open          http          syn-ack ttl 63 Apache httpd
+| http-methods: 
+|_  Supported Methods: GET HEAD POST OPTIONS
+|_http-server-header: Apache
+|_http-title: Did not follow redirect to http://artcorp.htb
+68/udp    open|filtered dhcpc         no-response
+989/udp   open|filtered ftps-data     no-response
+1080/udp  open|filtered socks         no-response
+9001/udp  open|filtered etlservicemgr no-response
+19161/udp open|filtered unknown       no-response
+21454/udp open|filtered unknown       no-response
+21674/udp open|filtered unknown       no-response
+21842/udp open|filtered unknown       no-response
+26407/udp open|filtered unknown       no-response
+31731/udp open|filtered unknown       no-response
+38037/udp open|filtered landesk-cba   no-response
+43686/udp open|filtered unknown       no-response
+52503/udp open|filtered unknown       no-response
+53037/udp open|filtered unknown       no-response
+54094/udp open|filtered unknown       no-response
+61142/udp open|filtered unknown       no-response
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+Read data files from: /usr/bin/../share/nmap
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+# Nmap done at Mon Jan 24 23:39:45 2022 -- 1 IP address (1 host up) scanned in 1127.50 seconds
