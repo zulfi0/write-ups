@@ -1,0 +1,19 @@
+# Nmap 7.80 scan initiated Mon Jan 24 02:20:59 2022 as: nmap -sS -sV -sC -T4 -oN nmap/nmap-all.txt -p- -vvv 10.10.11.136
+Nmap scan report for 10.10.11.136
+Host is up, received echo-reply ttl 63 (0.091s latency).
+Scanned at 2022-01-24 02:20:59 UTC for 188s
+Not shown: 65533 closed ports
+Reason: 65533 resets
+PORT   STATE SERVICE REASON         VERSION
+22/tcp open  ssh     syn-ack ttl 63 OpenSSH 8.2p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0)
+80/tcp open  http    syn-ack ttl 63 Apache httpd 2.4.41 ((Ubuntu))
+|_http-favicon: Unknown favicon MD5: 115E49F9A03BB97DEB840A3FE185434C
+| http-methods: 
+|_  Supported Methods: GET POST OPTIONS HEAD
+|_http-server-header: Apache/2.4.41 (Ubuntu)
+|_http-title: Play | Landing
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+Read data files from: /usr/bin/../share/nmap
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+# Nmap done at Mon Jan 24 02:24:07 2022 -- 1 IP address (1 host up) scanned in 188.79 seconds

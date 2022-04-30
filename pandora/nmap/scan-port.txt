@@ -1,0 +1,2 @@
+panda.htb : 22/tcp open
+panda.htb : 80/tcp open

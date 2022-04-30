@@ -1,0 +1,1 @@
+sleep 30; /bin/bash -c /usr/bin/host_check -u daniel -p HotelBabylon23
