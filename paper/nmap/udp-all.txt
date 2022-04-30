@@ -1,0 +1,1 @@
+# Nmap 7.80 scan initiated Wed Mar  9 02:48:32 2022 as: nmap -sS -sU -sV -sC -T4 -oN udp-all.txt -vvv -p- 10.10.11.143

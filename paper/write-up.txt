@@ -1,0 +1,20 @@
+OS: Red-Hat Rhel 8
+Vuln: bot in chat feature leaked user ssh credentials.
+
+recon:
+nmap shows 3 ports open on tcp, 22,80,443. using nikto or curl to retrieve the response header that using uncommon header "X-Backend-Server: office.paper". set the office.paper to hosts file.
+
+foothold:
+office.paper is wordpress 5.2.3 version that vulnerable to "Unauthenticated View Private/Draft Posts" see: https://wpscan.com/vulnerability/3413b879-785f-4c9f-aa8a-5a4a1d5e0ba2 for more details.
+
+adding ?static=1&order=asd at the url is giving 404 error, so using ?static=1 only give me draft of the admin said that it has another site to chat with another person complete with the secret registration url (chat.office.paper).
+
+signup to these chat.office.paper subdomain, read the chat. fortunately it has bot that can list and open a file directly from the server.
+
+because the room chat is read only so we need to chat the bot privately, using bot's feature we are able to get users credential under hubbot/.env file.
+
+login with ssh and we got user's flag.
+
+root?
+
+the server is running rhel 8 which is vulnerable to polkit CVE-2021-3560 (details: https://github.blog/2021-06-10-privilege-escalation-polkit-root-on-linux-with-bug/). clone the repository, and upload it to machine and boom we got root flag !.
