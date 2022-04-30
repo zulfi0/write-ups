@@ -1,0 +1,45 @@
+# Nmap 7.80 scan initiated Wed Jan 26 01:05:52 2022 as: nmap -sS -sV -T4 -sC -sU -oN nmap/nmap-all.txt -vvv 10.10.11.105
+Warning: 10.10.11.105 giving up on port because retransmission cap hit (6).
+Increasing send delay for 10.10.11.105 from 100 to 200 due to 11 out of 11 dropped probes since last increase.
+Increasing send delay for 10.10.11.105 from 200 to 400 due to 11 out of 11 dropped probes since last increase.
+Increasing send delay for 10.10.11.105 from 400 to 800 due to 11 out of 11 dropped probes since last increase.
+Nmap scan report for 10.10.11.105
+Host is up, received echo-reply ttl 63 (0.078s latency).
+Scanned at 2022-01-26 01:05:53 UTC for 1099s
+Not shown: 1982 closed ports
+Reason: 998 resets and 984 port-unreaches
+PORT      STATE         SERVICE     REASON         VERSION
+22/tcp    open          ssh         syn-ack ttl 63 OpenSSH 7.6p1 Ubuntu 4ubuntu0.5 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   2048 ee:77:41:43:d4:82:bd:3e:6e:6e:50:cd:ff:6b:0d:d5 (RSA)
+| ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDL2qJTqj1aoxBGb8yWIN4UJwFs4/UgDEutp3aiL2/6yV2iE78YjGzfU74VKlTRvJZWBwDmIOosOBNl9nfmEzXerD0g5lD5SporBx06eWX/XP2sQSEKbsqkr7Qb4ncvU8CvDR6yGHxmBT8WGgaQsA2ViVjiqAdlUDmLoT2qA3GeLBQgS41e+TysTpzWlY7z/rf/u0uj/C3kbixSB/upkWoqGyorDtFoaGGvWet/q7j5Tq061MaR6cM2CrYcQxxnPy4LqFE3MouLklBXfmNovryI0qVFMki7Cc3hfXz6BmKppCzMUPs8VgtNgdcGywIU/Nq1aiGQfATneqDD2GBXLjzV
+|   256 3a:d5:89:d5:da:95:59:d9:df:01:68:37:ca:d5:10:b0 (ECDSA)
+| ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBIyw6WbPVzY28EbBOZ4zWcikpu/CPcklbTUwvrPou4dCG4koataOo/RDg4MJuQP+sR937/ugmINBJNsYC8F7jN0=
+|   256 4a:00:04:b4:9d:29:e7:af:37:16:1b:4f:80:2d:98:94 (ED25519)
+|_ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJqmDVbv9RjhlUzOMmw3SrGPaiDBgdZ9QZ2cKM49jzYB
+80/tcp    open          http        syn-ack ttl 63 nginx 1.14.0 (Ubuntu)
+| http-methods: 
+|_  Supported Methods: GET HEAD POST OPTIONS
+|_http-server-header: nginx/1.14.0 (Ubuntu)
+|_http-title: Did not follow redirect to http://horizontall.htb
+20/udp    open|filtered ftp-data    no-response
+113/udp   open|filtered auth        no-response
+1046/udp  open|filtered wfremotertm no-response
+17321/udp open|filtered unknown     no-response
+19039/udp open|filtered unknown     no-response
+22739/udp open|filtered unknown     no-response
+23354/udp open|filtered unknown     no-response
+28122/udp open|filtered unknown     no-response
+28369/udp open|filtered unknown     no-response
+28465/udp open|filtered unknown     no-response
+36669/udp open|filtered unknown     no-response
+39723/udp open|filtered unknown     no-response
+43195/udp open|filtered unknown     no-response
+44334/udp open|filtered unknown     no-response
+49178/udp open|filtered unknown     no-response
+58178/udp open|filtered unknown     no-response
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+Read data files from: /usr/bin/../share/nmap
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+# Nmap done at Wed Jan 26 01:24:12 2022 -- 1 IP address (1 host up) scanned in 1099.76 seconds

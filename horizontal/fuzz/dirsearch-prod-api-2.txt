@@ -1,0 +1,13 @@
+
+Target: http://api-prod.horizontall.htb/admin/
+
+[04:02:19] Starting:
+[04:02:22] 403 -   60B  - /admin/plugins
+[04:02:35] 200 -  144B  - /admin/init
+[04:02:39] 200 -   90B  - /admin/layout
+[04:05:45] 200 -   90B  - /admin/Layout
+[04:06:04] 403 -   60B  - /admin/Plugins
+[04:07:14] 403 -   60B  - /admin/PlugIns
+
+Task Completed
+

@@ -1,0 +1,18 @@
+IP	: 10.10.11.105
+OS	: Ubuntu
+Vuln	: Strapi_CMS_3.0.0-beta.17.4 RCE
+
+# recon
+start running nmap to 10.10.11.105 the results shows that the machine host its ip to horizontall.htb at port 80.
+
+i browse the web manually, nothing interesting only get 2 .js file and fou d another endpoints at http://horizontall.htb/js/app.c68eb462.js that is 'api-prod.horizontall.htb'. this endpointa run strapi. fuzz the 2nd endpoint with dirbuster i got a login page in /admin/, in /admin/ directory i got /init which recover its version (strapi 3.0.0-beta17.4)
+
+# foothold
+Searching the related CVE on google i got https://www.exploit-db.com/exploits/50239 dow load the script and run it boom we got shell as strapi (1001).
+
+# root
+do basic enum i got port 8000 running laravel version 8 (php v7.4.18) search for related CVE i got https://github.com/nth347/CVE-2021-3129_exploit
+nb : u need to download phpggc manually on local machine and upload it to the box, do not put the exploit.py inside the phpggc put it outside of it.
+
+2nd root :
+basic enum SUID i got pkexec because it's uncommon SUID so i searching related CVE and got https://github.com/berdav/CVE-2021-4034 upload it to the box, follow the instruction and boom another root !
