@@ -1,0 +1,28 @@
+# Nmap 7.80 scan initiated Wed Jan 26 15:49:50 2022 as: nmap -sS -sU -sC -sV -oN nmap/nmap-all.txt -vvv 10.10.11.118
+Nmap scan report for 10.10.11.118
+Host is up, received reset ttl 63 (0.090s latency).
+Scanned at 2022-01-26 15:49:51 UTC for 1035s
+Not shown: 1997 closed ports
+Reason: 1000 port-unreaches and 997 resets
+PORT     STATE SERVICE REASON         VERSION
+22/tcp   open  ssh     syn-ack ttl 63 OpenSSH 8.2p1 Ubuntu 4ubuntu0.2 (Ubuntu Linux; protocol 2.0)
+80/tcp   open  http    syn-ack ttl 63 Apache httpd 2.4.41
+| http-methods: 
+|_  Supported Methods: GET HEAD POST OPTIONS
+|_http-server-header: Apache/2.4.41 (Ubuntu)
+|_http-title: Did not follow redirect to http://devzat.htb/
+8000/tcp open  ssh     syn-ack ttl 63 (protocol 2.0)
+| fingerprint-strings: 
+|   NULL: 
+|_    SSH-2.0-Go
+| ssh-hostkey: 
+|   3072 6a:ee:db:90:a6:10:30:9f:94:ff:bf:61:95:2a:20:63 (RSA)
+|_ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDTPm8Ze7iuUlabZ99t6SWJTw3spK5GP21qE/f7FOT/P+crNvZQKLuSHughKWgZH7Tku7Nmu/WxhZwVUFDpkiDG1mSPeK6uyGpuTmncComFvD3CaldFrZCNxbQ/BbWeyNVpF9szeVTwfdgY5PNoQFQ0reSwtenV6atEA5WfrZzhSZXWuWEn+7HB9C6w1aaqikPQDQSxRArcLZY5cgjNy34ZMk7MLaWciK99/xEYuNEAbR1v0/8ItVv5pyD8QMFD+s2NwHk6eJ3hqks2F5VJeqIZL2gXvBmgvQJ8fBLb0pBN6xa1xkOAPpQkrBL0pEEqKFQsdJaIzDpCBGmEL0E/DfO6Dsyq+dmcFstxwfvNO84OmoD2UArb/PxZPaOowjE47GRHl68cDIi3ULKjKoMg2QD7zrayfc7KXP8qEO0j5Xws0nXMll6VO9Gun6k9yaXkEvrFjfLucqIErd7eLtRvDFwcfw0VdflSdmfEz/NkV8kFpXm7iopTKdcwNcqjNnS1TIs=
+1 service unrecognized despite returning data. If you know the service/version, please submit the following fingerprint at https://nmap.org/cgi-bin/submit.cgi?new-service :
+SF-Port8000-TCP:V=7.80%I=7%D=1/26%Time=61F1718A%P=aarch64-unknown-linux-gn
+SF:u%r(NULL,C,"SSH-2\.0-Go\r\n");
+Service Info: Host: devzat.htb; OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+Read data files from: /usr/bin/../share/nmap
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+# Nmap done at Wed Jan 26 16:07:06 2022 -- 1 IP address (1 host up) scanned in 1036.36 seconds

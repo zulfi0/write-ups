@@ -1,0 +1,5 @@
+admin: Hey patrick, you there?
+patrick: Sure, shoot boss!                                                   admin: So I setup the influxdb for you as we discussed earlier in business          meeting.
+patrick: Cool 👍
+admin: Be sure to check it out and see if it works for you, will ya?
+patrick: Yes, sure. Am on it!

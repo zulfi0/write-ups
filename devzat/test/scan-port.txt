@@ -1,0 +1,3 @@
+devzat.htb : 22/tcp open
+devzat.htb : 80/tcp open
+devzat.htb : 8000/tcp open

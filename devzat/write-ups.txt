@@ -1,0 +1,41 @@
+Ip	: 10.10.11.118
+Host	: devzat.htb, pets.devzat.htb
+OS	: Ubuntu 20.4
+Vuln	: Command Injection on parameter 'species'
+
+# Recon
+start with scan host with nmap, result: 3 open ports (80,22,8000).
+Ports 8000 is ssh-go(2.0). i ran vhost fuzzing either and got another vhost pets.devzat.htb
+
+Visit the web on port 80 and found that the port 8000 is used for chatting between users:
+(local)~# ssh -l test devzat.htb -p 8000
+
+poke around on the feature chat i got github.com/quackduck/devzat which is devzat chat room source code. analyze the code there is hidden command like '/kick,/ls,/rm,/cat'
+
+trying the feature 1 by 1, i got error 'devbot: This command can only be ran by admins' so there is another user called admin.
+
+logging in with 'admin' did not succeed but with 'Admin' or 'adMin' i got logging in succesfully and :
+
+admin: Hey patrick, you there?
+patrick: Sure, shoot boss!
+admin: So I setup the influxdb for you as we discussed earlier in business          meeting.                                                              patrick: Cool 👍                                                             admin: Be sure to check it out and see if it works for you, will ya?
+patrick: Yes, sure. Am on it!
+
+so i got 2 users admin and patrick and running service on the servee i fluxdb, searching for related CVE i got https://github.com/LorenzoTullini/InfluxDB-Exploit-CVE-2019-20933 authentication bypass.
+
+# Initial access 
+i poked around on pets.devzat.htb, directory fuzzing i got .git directory so i dump the directory with git-dumper and got the source code. analyze the code and my logic said 'there is cmd injection on this because there is characteristic directory with animals name.
+
+in pets.devzat.htb there is a feature to adding pets name with 2 paramater on post 'name' and 'species' try to adding special char on 'name' caused error Exit status 1.
+
+hmmm interestring, this indicate that the server vuln to command injection.
+
+i run netcat on listener, and inject all the params with curl and in species params, i got response from curl :D soo revshell on it.
+
+# ROOT
+Coz we know influxdb is runningon the server on port 8086 i open up https://book.hacktricks.xyz/pentesting/8086-pentesting-influxdb
+
+and got another user password.
+
+SUID enum shows pkexec is in SUID binary with version 0.105 this could be vuln to https://github.com/berdav/CVE-2021-4034 compile it to zip file and upload to target machine, follow the instruction amd boom we are gROOT !
+
