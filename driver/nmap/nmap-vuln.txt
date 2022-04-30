@@ -1,0 +1,39 @@
+# Nmap 7.80 scan initiated Sun Jan 23 00:48:27 2022 as: nmap -sS -sV -T4 -sC -p- --script=vuln -oN nmap/nmap-vuln.txt -vvv 10.10.11.106
+Nmap scan report for 10.10.11.106
+Host is up, received echo-reply ttl 127 (0.078s latency).
+Scanned at 2022-01-23 00:48:38 UTC for 612s
+Not shown: 65531 filtered ports
+Reason: 65531 no-responses
+PORT     STATE SERVICE      REASON          VERSION
+80/tcp   open  http         syn-ack ttl 127 Microsoft IIS httpd 10.0
+|_clamav-exec: ERROR: Script execution failed (use -d to debug)
+|_http-csrf: Couldn't find any CSRF vulnerabilities.
+|_http-dombased-xss: Couldn't find any DOM based XSS.
+|_http-jsonp-detection: Couldn't find any JSONP endpoints.
+|_http-litespeed-sourcecode-download: Request with null byte did not work. This web server might not be vulnerable
+|_http-server-header: Microsoft-IIS/10.0
+|_http-stored-xss: Couldn't find any stored XSS vulnerabilities.
+|_http-wordpress-users: [Error] Wordpress installation was not found. We couldn't find wp-login.php
+135/tcp  open  msrpc        syn-ack ttl 127 Microsoft Windows RPC
+|_clamav-exec: ERROR: Script execution failed (use -d to debug)
+445/tcp  open  microsoft-ds syn-ack ttl 127 Microsoft Windows 7 - 10 microsoft-ds (workgroup: WORKGROUP)
+|_clamav-exec: ERROR: Script execution failed (use -d to debug)
+5985/tcp open  http         syn-ack ttl 127 Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)
+|_clamav-exec: ERROR: Script execution failed (use -d to debug)
+|_http-csrf: Couldn't find any CSRF vulnerabilities.
+|_http-dombased-xss: Couldn't find any DOM based XSS.
+|_http-jsonp-detection: Couldn't find any JSONP endpoints.
+|_http-litespeed-sourcecode-download: Request with null byte did not work. This web server might not be vulnerable
+|_http-server-header: Microsoft-HTTPAPI/2.0
+|_http-stored-xss: Couldn't find any stored XSS vulnerabilities.
+|_http-wordpress-users: [Error] Wordpress installation was not found. We couldn't find wp-login.php
+Service Info: Host: DRIVER; OS: Windows; CPE: cpe:/o:microsoft:windows
+
+Host script results:
+|_samba-vuln-cve-2012-1182: No accounts left to try
+|_smb-vuln-ms10-054: false
+|_smb-vuln-ms10-061: No accounts left to try
+
+Read data files from: /usr/bin/../share/nmap
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+# Nmap done at Sun Jan 23 00:58:50 2022 -- 1 IP address (1 host up) scanned in 622.98 seconds
