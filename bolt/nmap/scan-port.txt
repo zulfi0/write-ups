@@ -1,0 +1,3 @@
+mail.bolt.htb : 80/tcp open
+mail.bolt.htb : 22/tcp open
+mail.bolt.htb : 443/tcp open

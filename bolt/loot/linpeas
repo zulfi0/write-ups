@@ -1,0 +1,5 @@
+-rw-r----- 1 root www-data 3128 Feb 25  2021 /etc/passbolt/passbolt.php
+ * Passbolt ~ Open source password manager for teams
+            'host' => 'localhost',
+            'port' => '3306',
+            'username' => 'passbolt',                                                    'password' => 'rT2;jW7<eY8!dX8}pQ8%',                                        'database' => 'passboltdb',

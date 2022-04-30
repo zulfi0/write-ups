@@ -1,0 +1,47 @@
+{
+  "header": {
+    "id": "1008036e-d9c2-434b-bc69-78a1259258d1",
+    "status": "success",
+    "servertime": 1643711510,
+    "action": "1c717cd7-d236-55c4-a068-b9a0923b1927",
+    "message": "Recovery process started, check your email.",
+    "url": "/users/recover.json?api-version=v2",
+    "code": 200
+  },
+  "body": {
+    "id": "4e184ee6-e436-47fb-91c9-dccb57f250bc",
+    "role_id": "1cfcd300-0664-407e-85e6-c11664a7d86c",
+    "username": "eddie@bolt.htb",
+    "active": true,
+    "deleted": false,
+    "created": "2021-02-25T21:42:50+00:00",
+    "modified": "2021-02-25T21:55:06+00:00",
+    "profile": {
+      "id": "13d7b7c4-917e-48ee-9560-f022c89b2895",
+      "user_id": "4e184ee6-e436-47fb-91c9-dccb57f250bc",
+      "first_name": "Eddie",
+      "last_name": "Johnson",
+      "created": "2021-02-25T21:42:50+00:00",
+      "modified": "2021-02-25T21:55:06+00:00",
+      "avatar": {
+        "id": "42c3796f-5561-47d9-9425-ce1e7d5d2005",
+        "data": null,
+        "profile_id": "13d7b7c4-917e-48ee-9560-f022c89b2895",
+        "created": "2021-09-09T16:28:55+00:00",
+        "modified": "2021-09-09T16:28:55+00:00",
+        "url": {
+          "medium": "https://passbolt.bolt.htb/avatars/view/42c3796f-5561-47d9-9425-ce1e7d5d2005/medium.jpg",
+          "small": "https://passbolt.bolt.htb/avatars/view/42c3796f-5561-47d9-9425-ce1e7d5d2005/small.jpg"
+        }
+      }
+    },
+    "role": {
+      "id": "1cfcd300-0664-407e-85e6-c11664a7d86c",
+      "name": "user",
+      "description": "Logged in user",
+      "created": "2012-07-04T13:39:25+00:00",
+      "modified": "2012-07-04T13:39:25+00:00"
+    },
+    "last_logged_in": null
+  }
+}

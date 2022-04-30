@@ -1,0 +1,65 @@
+IP	: 10.10.11.114
+OS	: Ubuntu 20.04
+VULN	: FLASK SSTI
+
+# Recon
+start with nmap, found only 3 open ports: 80/tcp,22/tcp,443/tcp.
+port 443 has website called passbolt.bolt.htb meanwhile port 80 has bolt.htb.
+
+Vhost bruteforce shown 2 website that is mail.bolt.htb, and demo.bolt.htb.
+
+# Foothold
+while browsing on the main website (passbolt.bolt.htb & bolt.htb), on passbolt.bolt.htb it only asking for email to get invitation code, tried to enter any ****@bolt.htb seems no lucky.
+
+in bolt.htb, we got image.tar from the server to download. Download it and analayze the file.
+in the image.tar we got bunch of folder with layer.tar in every single of it extract all the layer.tar inside it's folder.
+
+using grep to find admin@bolt.htb:
+~# grep -Hnri "admin@bolt.htb"
+we got :
+Binary file a4ea7da8de7bfbf327b56b0cb794aed9a8487d31e588b75029f6b527af2976f2/db.sqlite3 matches
+and it contains admin hash, crack it and we got admin access on bolt.htb.
+
+on admin site we had a clue that user "eddie" is only who got access to passbolt.bolt.htb and it mention about the file we downloaded before hmm interesting, but still we need invitation code to get in.
+
+on demo.bolt.htb we can register and it need "invite code", in admin dashboard it mention the downloaded file, so let's look for it.
+using grep :
+~# grep -Hnri "Invite code" # got 1 file match but no invite code
+~# grep -Hnri "Invite" # got bunch of file but 1 file has invite code, cool 
+
+now we have invite code, so we can register as any user. while poke around the site i got no file upload feature but only 1 feature to change my name,skill,hobby. since the server using flask as template lets try SSTI like {{ 7*7 }}. first i got confuse where i can see it vuln ?
+
+soo yess the answer is in another website, mail.bolt.htb that allow us to login using credentials we registered in demo.bolt.htb. login and see verification email received, after verified we got another email that telling us our profile has changed, and i got "49" which is 7*7 sooo it's vuln to SSTI !. 
+
+using these vuln i got shell as www-data.
+
+# priv esc 1
+from www-data, i start enumerating the system and there is port 3306 is open which is mysql, so i search for conf,db,database file that may contain username and password for mysql, but no luck. so i ran linpeas.sh and got username and password for passbolt db.
+
+using these password i got ssh as eddie.
+
+# ROOT
+login to mysql using creds we got before, dump teh database 1 by 1 and in "secrets" table we got pgp message format, without private key we cannot decrypt it.
+
+run linpeas.sh 1 more time, we got directory /var/spool/mail. this directory has a clue that clark told eddie to backup his private key. hmmm intersteting....
+
+so searching for private key of eddie with :
+~# grep -Hnri "BEGIN PGP PRIVATE"
+and see the output.
+
+once got the log file, extract it and clear it with:
+~# cat priv-key | sed -e "s/\\\\r/\\\\n/\n" > private-key
+
+now import it with gpg:
+~# gpg --import private-key
+it need password so we have to crack it using JtR :
+~# gpg2john private-key > hash
+~# joh --wordlist=rockyou.txt hash
+once it finish we get the password, now re import the private key after that decrypt the message using gpg :
+~# gpg -d secret-msg
+and now we have another password for root.
+
+in ssh :
+eddie~$ su
+enter the password:
+root~#
